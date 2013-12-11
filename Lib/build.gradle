@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.6.+'
+    }
+}
+apply plugin: 'android-library'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion "Google Inc.:Glass Development Kit Sneak Peek:15"
+    buildToolsVersion "19"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 15
+    }
+    release {
+        runProguard false
+        proguardFile 'proguard-rules.txt'
+        proguardFile getDefaultProguardFile('proguard-android.txt')
+    }
+}
+
+dependencies {
+}
