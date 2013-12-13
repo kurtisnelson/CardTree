@@ -1,13 +1,9 @@
 package com.kelsonprime.cardtree.example;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.glass.app.Card;
 import com.kelsonprime.cardtree.Level;
@@ -15,17 +11,29 @@ import com.kelsonprime.cardtree.Node;
 import com.kelsonprime.cardtree.Tree;
 
 public class MainActivity extends Activity {
+    private Tree tree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new CardTreeFragment())
-                    .commit();
-        }
+        tree = new Tree(this);
+        Level root = tree.getRoot();
+        Level second = new Level(tree);
+
+        Card one = new Card(this);
+        one.setText("One");
+        root.add(new Node(one.toView()));
+
+        Card two = new Card(this);
+        two.setText("Two");
+        root.add(new Node(two.toView(), second));
+
+        Card a = new Card(this);
+        a.setText("A");
+        second.add(new Node(a.toView()));
+
+        setContentView(tree);
     }
 
 
@@ -47,35 +55,4 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class CardTreeFragment extends Fragment {
-
-        public CardTreeFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            Tree tree = new Tree(this.getActivity());
-            Level root = tree.getRoot();
-            Level second = new Level(tree);
-
-            Card one = new Card(this.getActivity());
-            one.setText("One");
-            root.add(new Node(one.toView()));
-
-            Card two = new Card(this.getActivity());
-            two.setText("Two");
-            root.add(new Node(two.toView(), second));
-
-            Card a = new Card(this.getActivity());
-            a.setText("A");
-            second.add(new Node(a.toView()));
-            return tree;
-        }
-    }
-
 }

@@ -18,6 +18,7 @@ public class Tree extends CardScrollView{
         adapter = new ScrollAdapter(this);
         this.setAdapter(adapter);
         this.setOnItemClickListener(new TapListener(this));
+        this.activate();
     }
 
     public Level getCurrentLevel(){
@@ -26,6 +27,7 @@ public class Tree extends CardScrollView{
     }
 
     public Level getRoot() { return root; }
+
     public void setCurrentLevel(Level level){
         this.currentLevel = level;
         adapter.notifyDataSetChanged();
