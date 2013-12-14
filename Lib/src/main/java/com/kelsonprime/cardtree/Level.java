@@ -1,5 +1,6 @@
 package com.kelsonprime.cardtree;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -11,14 +12,22 @@ public class Level extends ArrayList<Node> {
         this.parent = parent;
     }
 
-    void click(View v, int pos, long id){
+    void click(int pos){
         click(this.get(pos));
     }
 
-    void click(Node v){
+    private void click(Node v){
         if(v.hasChild()){
-            parent.setCurrentLevel(v.getChild());
+            parent.enterLevel(v.getChild());
         }
         v.click();
+    }
+
+    void focus(int pos, boolean hasFocus){
+        focus(this.get(pos), hasFocus);
+    }
+
+    private void focus(Node node, boolean hasFocus) {
+        node.setFocus(hasFocus);
     }
 }
