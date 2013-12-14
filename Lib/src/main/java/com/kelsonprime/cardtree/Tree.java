@@ -2,12 +2,9 @@ package com.kelsonprime.cardtree;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollView;
 
 import java.util.Stack;
@@ -36,6 +33,10 @@ public class Tree extends CardScrollView {
         Log.d(TAG, "Activated with " + adapter.getCount() + " cards");
     }
 
+    public boolean isRootCurrent(){
+        return currentLevel.equals(root);
+    }
+
     public Level getCurrentLevel() {
 
         return currentLevel;
@@ -43,21 +44,6 @@ public class Tree extends CardScrollView {
 
     public Level getRoot() {
         return root;
-    }
-
-    /**
-     * Pass a MotionEvent into the gesture detector
-     */
-    @Override
-    public boolean dispatchGenericMotionEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_CANCEL){
-            if(getCurrentLevel() != getRoot()){
-                back();
-                Log.d(TAG, "Dispatched back");
-                return true;
-            }
-        }
-        return super.dispatchGenericFocusedEvent(event);
     }
 
     public void enterLevel(Level level) {

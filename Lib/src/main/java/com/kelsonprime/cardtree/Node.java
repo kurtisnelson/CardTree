@@ -1,6 +1,5 @@
 package com.kelsonprime.cardtree;
 
-import android.util.Log;
 import android.view.View;
 
 public class Node {
