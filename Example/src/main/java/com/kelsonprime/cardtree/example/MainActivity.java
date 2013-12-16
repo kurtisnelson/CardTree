@@ -22,27 +22,40 @@ public class MainActivity extends CardTreeActivity {
 
         Tree tree = getTree();
         Level root = tree.getRoot();
-        Level second = new Level(tree);
+        Level twoChild = new Level(tree);
+        Level threeChild = new Level(tree, R.menu.sample); //This one has a level-wide menu. Down the road we will be able to be more efficient and not constantly reinflate things
 
+        //Card One
         Card one = new Card(this);
         one.setText("Dead End");
         root.add(new Node(one.toView()));
 
+        // Card Two
         Card two = new Card(this);
         two.setText("Submenu");
-        root.add(new Node(two.toView(), second));
+        root.add(new Node(two.toView(), twoChild));
 
         Card a = new Card(this);
         a.setText("Click Listened to");
         View viewA = a.toView();
         viewA.setOnClickListener(new ClickListener());
-        second.add(new Node(viewA));
+        twoChild.add(new Node(viewA));
 
         Card b = new Card(this);
         b.setText("I have a menu");
         View viewB = b.toView();
         viewB.setOnFocusChangeListener(new FocusListener());
-        second.add(new Node(viewB, R.menu.sample));
+        twoChild.add(new Node(viewB, R.menu.sample));
+
+        //Card Three
+        Card three = new Card(this);
+        three.setText("Level wide submenu in here");
+        root.add(new Node(three.toView(), threeChild));
+
+        Card repeat = new Card(this);
+        repeat.setText("I have a menu");
+        threeChild.add(new Node(repeat.toView()));
+        threeChild.add(new Node(repeat.toView()));
 
         tree.showRoot();
         setContentView(tree);

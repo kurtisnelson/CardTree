@@ -1,9 +1,8 @@
 package com.kelsonprime.cardtree;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
-import android.view.Menu;
+
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -51,6 +50,8 @@ public class Tree extends CardScrollView {
     }
 
     public void enterLevel(Level level) {
+        if(level.isEmpty())
+            throw new RuntimeException("Empty " + level.toString() + " cannot be entered");
         if (level == this.root) {
             backStack.clear();
         } else {

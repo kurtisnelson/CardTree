@@ -38,15 +38,26 @@ public class CardTreeActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        //#TODO We should be able to make this more efficient and not constantly reinflate.
         if(getCurrentNode().hasMenu()){
+            Log.d(TAG, "Preparing Node menu");
             menu.clear();
             Integer activeMenu = getCurrentNode().getMenuRes();
+            getMenuInflater().inflate(activeMenu, menu);
+            return true;
+        }else if(getCurrentLevel().hasMenu()){
+            Log.d(TAG, "Preparing level menu");
+            menu.clear();
+            Integer activeMenu = getCurrentLevel().getMenuRes();
             getMenuInflater().inflate(activeMenu, menu);
             return true;
         }
         return false;
     }
 
+    private Level getCurrentLevel(){
+        return getTree().getCurrentLevel();
+    }
     private Node getCurrentNode(){
         return getTree().getCurrentNode();
     }
