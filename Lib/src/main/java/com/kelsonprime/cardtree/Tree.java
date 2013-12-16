@@ -1,7 +1,9 @@
 package com.kelsonprime.cardtree;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -15,9 +17,11 @@ public class Tree extends CardScrollView {
     private Level root;
     private Level currentLevel;
     private Stack<Level> backStack;
+    private Activity activity;
 
-    public Tree(Context context) {
-        super(context);
+    public Tree(Activity activity) {
+        super(activity);
+        this.activity = activity;
         this.backStack = new Stack<Level>();
         this.root = new Level(this);
         this.currentLevel = root;
@@ -66,11 +70,21 @@ public class Tree extends CardScrollView {
 
     private void setLevel(Level level) {
         this.currentLevel = level;
-
         adapter.setCurrentLevel(level);
         setSelection(0);
         this.updateViews(true);
     }
+
+    // DON'T LOOK UNDER THIS LINE, I NEED TO MAKE THIS MESSAGE PASSING STUFF GO AWAY
+
+    /**
+     * Really gross way of doing this, I don't want to have to track the activity just for this.
+     */
+    void showMenu() {
+        activity.openOptionsMenu();
+    }
+
+    Node getCurrentNode() { return currentLevel.get(getSelectedItemPosition());}
 
     @Override
     protected void onUnsettled(int position) {

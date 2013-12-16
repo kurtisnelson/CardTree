@@ -13,11 +13,14 @@ public class Level extends ArrayList<Node> {
         click(this.get(pos));
     }
 
-    private void click(Node v){
-        if(v.hasChild()){
-            parent.enterLevel(v.getChild());
+    private void click(Node node){
+        if(node.hasChild()){
+            parent.enterLevel(node.getChild());
+        }else if(node.hasMenu()){
+            parent.showMenu();
+        }else{
+            node.click();
         }
-        v.click();
     }
 
     void focus(int pos, boolean hasFocus){
