@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 
 /**
- * Created by kurt on 12/16/13.
+ * Activity that holds a treeing version of the stock GDK CardScrollView.
  */
 public class CardTreeActivity extends Activity {
     private String TAG = "CardTreeActivity";
@@ -24,7 +23,8 @@ public class CardTreeActivity extends Activity {
     }
 
     /**
-     * Kind of dirty hack to allow swipe down to go back.
+     * Dirty hack to allow swipe down to go back.
+     * Make sure you call super if overridden.
      */
     @Override
     public void onBackPressed() {
@@ -36,6 +36,11 @@ public class CardTreeActivity extends Activity {
         }
     }
 
+    /**
+     * Inflates the correct menu resource depending on what the active level and node are.
+     * @param menu to inflate into
+     * @return if a menu should be shown at all
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         //#TODO We should be able to make this more efficient and not constantly reinflate.

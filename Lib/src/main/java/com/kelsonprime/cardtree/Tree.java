@@ -10,6 +10,9 @@ import com.google.android.glass.widget.CardScrollView;
 
 import java.util.Stack;
 
+/**
+ * Manages the levels and dispatches events.
+ */
 public class Tree extends CardScrollView {
     private static final String TAG = "Tree";
     private ScrollAdapter adapter;
@@ -18,6 +21,10 @@ public class Tree extends CardScrollView {
     private Stack<Level> backStack;
     private Activity activity;
 
+    /**
+     * Create a tree with an empty root level.
+     * @param activity
+     */
     public Tree(Activity activity) {
         super(activity);
         this.activity = activity;
@@ -30,27 +37,40 @@ public class Tree extends CardScrollView {
         this.setOnItemClickListener(new TapListener(this));
     }
 
+    /**
+     * Makes the root level visible on the view
+     */
     public void showRoot() {
         enterLevel(this.root);
         activate();
         Log.d(TAG, "Activated with " + adapter.getCount() + " cards");
     }
 
-    public boolean isRootCurrent(){
+    /**
+     * @return if root level is the visible level
+     */
+    public boolean isRootCurrent() {
         return currentLevel.equals(root);
     }
 
-    public Level getCurrentLevel() {
+    Level getCurrentLevel() {
 
         return currentLevel;
     }
 
+    /**
+     * @return root level that nodes and child levels should branch from
+     */
     public Level getRoot() {
         return root;
     }
 
+    /**
+     * Sets a level as the currently visible one and manages the back stack
+     * @param level
+     */
     public void enterLevel(Level level) {
-        if(level.isEmpty())
+        if (level.isEmpty())
             throw new RuntimeException("Empty " + level.toString() + " cannot be entered");
         if (level == this.root) {
             backStack.clear();
@@ -60,6 +80,9 @@ public class Tree extends CardScrollView {
         setLevel(level);
     }
 
+    /**
+     * Pops off of the backstack and renders
+     */
     public void back() {
         Log.d(TAG, "Recieved back");
         if (backStack.isEmpty()) {
@@ -85,29 +108,40 @@ public class Tree extends CardScrollView {
         activity.openOptionsMenu();
     }
 
-    Node getCurrentNode() { return currentLevel.get(getSelectedItemPosition());}
+    Node getCurrentNode() {
+        return currentLevel.get(getSelectedItemPosition());
+    }
 
+    /**
+     * Event when a position is no longer at rest.
+     * @param position
+     */
     @Override
     protected void onUnsettled(int position) {
         super.onUnsettled(position);
         getCurrentLevel().focus(position, false);
     }
 
+    /**
+     * Event when a view is rested in view
+     * @param position
+     */
     @Override
     protected void onSettled(int position) {
         super.onSettled(position);
         getCurrentLevel().focus(position, true);
     }
-}
 
-class TapListener implements AdapterView.OnItemClickListener {
-    private Tree tree;
 
-    TapListener(Tree tree) {
-        this.tree = tree;
-    }
+    class TapListener implements AdapterView.OnItemClickListener {
+        private Tree tree;
 
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        tree.getCurrentLevel().click(position);
+        TapListener(Tree tree) {
+            this.tree = tree;
+        }
+
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            tree.getCurrentLevel().click(position);
+        }
     }
 }

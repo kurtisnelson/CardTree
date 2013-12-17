@@ -6,7 +6,11 @@ import android.widget.AdapterView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
-public class ScrollAdapter extends CardScrollAdapter {
+/**
+ * Holds and bookkeeps the active Level
+ * @see com.kelsonprime.cardtree.Level
+ */
+class ScrollAdapter extends CardScrollAdapter {
     private final Tree parent;
     private Level currentLevel;
 
