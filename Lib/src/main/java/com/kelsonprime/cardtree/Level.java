@@ -11,6 +11,7 @@ public class Level extends ArrayList<Node> {
     private static final String TAG = "Level";
     private Tree owner;
     private Integer menuRes;
+    private int startPosition;
 
     /**
      * Create a new empty level
@@ -27,6 +28,7 @@ public class Level extends ArrayList<Node> {
      */
     public Level(Tree owner, Integer menuRes){
         super();
+        this.startPosition = 0;
         this.owner = owner;
         this.menuRes = menuRes;
     }
@@ -75,5 +77,13 @@ public class Level extends ArrayList<Node> {
 
     private void focus(Node node, boolean hasFocus) {
         node.setFocus(hasFocus);
+    }
+
+    public int getStartPosition() {
+        return this.startPosition;
+    }
+
+    public void setStartPosition(int startPosition){
+        this.startPosition = startPosition;
     }
 }

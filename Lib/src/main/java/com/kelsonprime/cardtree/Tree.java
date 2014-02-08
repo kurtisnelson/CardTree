@@ -19,6 +19,7 @@ public class Tree extends CardScrollView {
     private Level root;
     private Level currentLevel;
     private Stack<Level> backStack;
+    private Stack<Integer> backPositionStack;
     private Activity activity;
 
     /**
@@ -29,6 +30,7 @@ public class Tree extends CardScrollView {
         super(activity);
         this.activity = activity;
         this.backStack = new Stack<Level>();
+        this.backPositionStack = new Stack<Integer>();
         this.root = new Level(this);
         this.currentLevel = root;
         this.adapter = new ScrollAdapter(this);
@@ -76,6 +78,7 @@ public class Tree extends CardScrollView {
             backStack.clear();
         } else {
             backStack.push(this.currentLevel);
+            backPositionStack.push(getSelectedItemPosition());
         }
         setLevel(level);
     }
@@ -88,14 +91,17 @@ public class Tree extends CardScrollView {
         if (backStack.isEmpty()) {
             Log.e(TAG, "Already at root");
         } else {
-            setLevel(backStack.pop());
+            setLevel(backStack.pop(), backPositionStack.pop());
         }
     }
 
-    private void setLevel(Level level) {
+    private void setLevel(Level level){
+        setLevel(level, level.getStartPosition());
+    }
+    private void setLevel(Level level, Integer position) {
         this.currentLevel = level;
         adapter.setCurrentLevel(level);
-        setSelection(0);
+        setSelection(position);
         this.updateViews(true);
     }
 
