@@ -7,7 +7,7 @@ import android.view.View;
  */
 public class Node {
     private static final String TAG = "Node";
-    private final Level child;
+    private Level child;
     private final View view;
     private final Integer menuRes;
 
@@ -51,6 +51,13 @@ public class Node {
      */
     public boolean hasChild() {
         return child != null;
+    }
+    
+    /**
+     * @param child
+     */
+    public void setChild(Level child){
+        this.child = child;
     }
 
     /**
