@@ -72,8 +72,9 @@ public class Tree extends CardScrollView {
      * @param level
      */
     public void enterLevel(Level level) {
-        if (level.isEmpty())
-            throw new RuntimeException("Empty " + level.toString() + " cannot be entered");
+        if (level.isEmpty()) {
+            return;
+        }
         if (level == this.root) {
             backStack.clear();
         } else {
