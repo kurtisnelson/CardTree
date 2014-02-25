@@ -46,15 +46,11 @@ public class CardTreeActivity extends Activity {
         //#TODO We should be able to make this more efficient and not constantly reinflate.
         if(getCurrentNode().hasMenu()){
             Log.d(TAG, "Preparing Node menu");
-            menu.clear();
-            Integer activeMenu = getCurrentNode().getMenuRes();
-            getMenuInflater().inflate(activeMenu, menu);
+            getCurrentNode().getMenu().build(getMenuInflater(), menu);
             return true;
         }else if(getCurrentLevel().hasMenu()){
             Log.d(TAG, "Preparing level menu");
-            menu.clear();
-            Integer activeMenu = getCurrentLevel().getMenuRes();
-            getMenuInflater().inflate(activeMenu, menu);
+            getCurrentLevel().getMenu().build(getMenuInflater(), menu);
             return true;
         }
         return false;

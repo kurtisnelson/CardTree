@@ -9,7 +9,7 @@ public class Node {
     private static final String TAG = "Node";
     private Level child;
     private final View view;
-    private final Integer menuRes;
+    private final DynamicMenu menu;
 
     /**
      * Create view for a level
@@ -22,10 +22,10 @@ public class Node {
     /**
      * Create a view with a resource that will be inflated via #{@link android.view.MenuInflater} on tap.
      * @param view
-     * @param menuRes R class Id of menu. It will override menuRes on the parent #{@link com.kelsonprime.cardtree.Level} for this node only.
+     * @param menu It will override menu on the parent #{@link com.kelsonprime.cardtree.Level} for this node only.
      */
-    public Node(View view, Integer menuRes) {
-        this(view, null, menuRes);
+    public Node(View view, DynamicMenu menu) {
+        this(view, null, menu);
     }
 
     /**
@@ -37,10 +37,10 @@ public class Node {
         this(view, child, null);
     }
 
-    private Node(View view, Level child, Integer menuRes){
+    private Node(View view, Level child, DynamicMenu menu){
         this.child = child;
         this.view = view;
-        this.menuRes = menuRes;
+        this.menu = menu;
         view.setFocusable(true);
         view.clearFocus();
     }
@@ -65,7 +65,7 @@ public class Node {
      * @return if this has an options menu
      */
     public boolean hasMenu() {
-        return menuRes != null;
+        return menu != null;
     }
 
     /**
@@ -82,11 +82,6 @@ public class Node {
         return view;
     }
 
-    /**
-     * @return menu that will be inflated
-     */
-    public int getMenuRes() { return menuRes; }
-
     void click(){
         view.performClick();
     }
@@ -94,5 +89,9 @@ public class Node {
     void setFocus(boolean focus){
         if(focus)
             view.requestFocus();
+    }
+
+    public DynamicMenu getMenu() {
+        return menu;
     }
 }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Level extends ArrayList<Node> {
     private static final String TAG = "Level";
     private Tree owner;
-    private Integer menuRes;
     private int startPosition;
+    private DynamicMenu menu;
 
     /**
      * Create a new empty level
@@ -24,31 +24,24 @@ public class Level extends ArrayList<Node> {
     /**
      * Create a level that has a menu resource applied by default to all nodes.
      * @param owner Receives events from this level
-     * @param menuRes R class Id of menu to inflate
+     * @param menu menu to inflate
      */
-    public Level(Tree owner, Integer menuRes){
+    public Level(Tree owner, DynamicMenu menu){
         super();
         this.startPosition = 0;
         this.owner = owner;
-        this.menuRes = menuRes;
+        this.menu = menu;
     }
 
     /**
      * @return if this level has a default menu applied
      */
     public boolean hasMenu(){
-        return menuRes != null;
+        return menu != null;
     }
 
     /**
-     * @return R class Id of menu used
-     */
-    public Integer getMenuRes() {
-        return menuRes;
-    }
-
-    /**
-     * Recieves click events from {@link com.kelsonprime.cardtree.TapListener}
+     * Recieves click events from {@link com.kelsonprime.cardtree.CardTreeActivity}
      * @param position
      */
     void click(int position){
@@ -85,5 +78,9 @@ public class Level extends ArrayList<Node> {
 
     public void setStartPosition(int startPosition){
         this.startPosition = startPosition;
+    }
+
+    public DynamicMenu getMenu() {
+        return menu;
     }
 }
