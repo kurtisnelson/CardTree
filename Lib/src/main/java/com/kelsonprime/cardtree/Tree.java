@@ -1,11 +1,14 @@
 package com.kelsonprime.cardtree;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
 import android.util.Log;
 
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardScrollView;
 
 import java.util.Stack;
@@ -21,6 +24,7 @@ public class Tree extends CardScrollView {
     private Stack<Level> backStack;
     private Stack<Integer> backPositionStack;
     private Activity activity;
+    private AudioManager systemAudio;
 
     /**
      * Create a tree with an empty root level.
@@ -29,6 +33,7 @@ public class Tree extends CardScrollView {
     public Tree(Activity activity) {
         super(activity);
         this.activity = activity;
+        this.systemAudio = (android.media.AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
         this.backStack = new Stack<Level>();
         this.backPositionStack = new Stack<Integer>();
         this.root = new Level(this);
@@ -73,6 +78,7 @@ public class Tree extends CardScrollView {
      */
     public void enterLevel(Level level) {
         if (level.isEmpty()) {
+            systemAudio.playSoundEffect(Sounds.DISALLOWED);
             return;
         }
         if (level == this.root) {
