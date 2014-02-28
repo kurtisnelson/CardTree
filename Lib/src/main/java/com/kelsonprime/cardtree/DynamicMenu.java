@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DynamicMenu {
-    private static int itemCounter = 0; //Start at 100 to not interfere with
+    private static int itemCounter = 0;
     private static Map<Integer, CharSequence> menuItems = new HashMap<Integer, CharSequence>();
     private ArrayList<Integer> items;
     private Integer resourceId;

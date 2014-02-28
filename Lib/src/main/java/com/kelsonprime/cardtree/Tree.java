@@ -41,7 +41,9 @@ public class Tree extends CardScrollView {
         this.adapter = new ScrollAdapter(this);
 
         this.setAdapter(adapter);
-        this.setOnItemClickListener(new TapListener(this));
+        TapSelectedListener listener = new TapSelectedListener(this);
+        this.setOnItemClickListener(listener);
+        this.setOnItemSelectedListener(listener);
     }
 
     /**
@@ -54,13 +56,28 @@ public class Tree extends CardScrollView {
     }
 
     /**
+     * Sets the activity to a new activity
+     */
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    /**
+     * Sets the listener
+     */
+    public void setListener(TapSelectedListener listener) {
+        this.setOnItemClickListener(listener);
+        this.setOnItemSelectedListener(listener);
+    }
+
+    /**
      * @return if root level is the visible level
      */
     public boolean isRootCurrent() {
         return currentLevel.equals(root);
     }
 
-    Level getCurrentLevel() {
+    public Level getCurrentLevel() {
 
         return currentLevel;
     }
@@ -121,7 +138,7 @@ public class Tree extends CardScrollView {
         activity.openOptionsMenu();
     }
 
-    Node getCurrentNode() {
+    public Node getCurrentNode() {
         return currentLevel.get(getSelectedItemPosition());
     }
 
@@ -143,18 +160,5 @@ public class Tree extends CardScrollView {
     protected void onSettled(int position) {
         super.onSettled(position);
         getCurrentLevel().focus(position, true);
-    }
-
-
-    class TapListener implements AdapterView.OnItemClickListener {
-        private Tree tree;
-
-        TapListener(Tree tree) {
-            this.tree = tree;
-        }
-
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            tree.getCurrentLevel().click(position);
-        }
     }
 }
