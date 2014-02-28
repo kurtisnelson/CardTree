@@ -25,6 +25,7 @@ public class Tree extends CardScrollView {
     private Stack<Integer> backPositionStack;
     private Activity activity;
     private AudioManager systemAudio;
+    private boolean ignoreSelect;
 
     /**
      * Create a tree with an empty root level.
@@ -32,6 +33,7 @@ public class Tree extends CardScrollView {
      */
     public Tree(Activity activity) {
         super(activity);
+        this.ignoreSelect = false;
         this.activity = activity;
         this.systemAudio = (android.media.AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
         this.backStack = new Stack<Level>();
@@ -122,10 +124,17 @@ public class Tree extends CardScrollView {
     private void setLevel(Level level){
         setLevel(level, level.getStartPosition());
     }
+
+    public boolean getIgnoreSelect() {
+        return ignoreSelect;
+    }
+
     private void setLevel(Level level, Integer position) {
+        ignoreSelect = true;
         this.currentLevel = level;
         adapter.setCurrentLevel(level);
         setSelection(position);
+        ignoreSelect = false;
         this.updateViews(true);
     }
 
