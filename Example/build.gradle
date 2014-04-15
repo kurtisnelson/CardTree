@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
     }
 }
 apply plugin: 'android'
@@ -19,17 +19,6 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 15
-    }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFile getDefaultProguardFile('proguard-android.txt')
-        }
-    }
-    productFlavors {
-        defaultFlavor {
-            proguardFile 'proguard-rules.txt'
-        }
     }
 }
 
