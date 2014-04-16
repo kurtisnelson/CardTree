@@ -32,34 +32,34 @@ public class MainActivity extends CardTreeActivity {
         //Card One
         Card one = new Card(this);
         one.setText("Dead End");
-        root.add(new Node(one.toView()));
+        root.add(new Node(one.getView()));
 
         // Card Two
         Card two = new Card(this);
         two.setText("Submenu");
-        root.add(new Node(two.toView(), twoChild));
+        root.add(new Node(two.getView(), twoChild));
 
         Card a = new Card(this);
         a.setText("Click Listened to");
-        View viewA = a.toView();
+        View viewA = a.getView();
         viewA.setOnClickListener(new ClickListener());
         twoChild.add(new Node(viewA));
 
         Card b = new Card(this);
         b.setText("I have a menu");
-        View viewB = b.toView();
+        View viewB = b.getView();
         viewB.setOnFocusChangeListener(new FocusListener());
         twoChild.add(new Node(viewB, sampleMenu));
 
         //Card Three
         Card three = new Card(this);
         three.setText("Level wide submenu in here");
-        root.add(new Node(three.toView(), threeChild));
+        root.add(new Node(three.getView(), threeChild));
 
         Card repeat = new Card(this);
         repeat.setText("I have a menu");
-        threeChild.add(new Node(repeat.toView()));
-        threeChild.add(new Node(repeat.toView()));
+        threeChild.add(new Node(repeat.getView()));
+        threeChild.add(new Node(repeat.getView()));
 
         tree.showRoot();
         setContentView(tree);
