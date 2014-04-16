@@ -129,13 +129,17 @@ public class Tree extends CardScrollView {
         return ignoreSelect;
     }
 
+    public void updateViews() {
+        adapter.notifyDataSetChanged();
+    }
+
     private void setLevel(Level level, Integer position) {
         ignoreSelect = true;
         this.currentLevel = level;
         adapter.setCurrentLevel(level);
         setSelection(position);
         ignoreSelect = false;
-        this.updateViews(true);
+        this.adapter.notifyDataSetChanged();
     }
 
     // DON'T LOOK UNDER THIS LINE, I NEED TO MAKE THIS MESSAGE PASSING STUFF GO AWAY
@@ -149,25 +153,5 @@ public class Tree extends CardScrollView {
 
     public Node getCurrentNode() {
         return currentLevel.get(getSelectedItemPosition());
-    }
-
-    /**
-     * Event when a position is no longer at rest.
-     * @param position
-     */
-    @Override
-    protected void onUnsettled(int position) {
-        super.onUnsettled(position);
-        getCurrentLevel().focus(position, false);
-    }
-
-    /**
-     * Event when a view is rested in view
-     * @param position
-     */
-    @Override
-    protected void onSettled(int position) {
-        super.onSettled(position);
-        getCurrentLevel().focus(position, true);
     }
 }

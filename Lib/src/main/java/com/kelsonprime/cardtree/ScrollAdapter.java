@@ -36,26 +36,16 @@ class ScrollAdapter extends CardScrollAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            return setItemOnCard(this, currentLevel.get(i).getView());
+            return currentLevel.get(i).getView();
         } else {
-            return setItemOnCard(this, view);
+            return view;
         }
     }
 
     @Override
-    public int findIdPosition(Object id) {
-        for(int i = 0; i < currentLevel.size(); i++){
-            if(currentLevel.get(i).getView().getId() == (Integer) id){
-                return i;
-            }
-        }
-        return AdapterView.INVALID_POSITION;
-    }
-
-    @Override
-    public int findItemPosition(Object item) {
+    public int getPosition(Object o) {
         for (int i = 0; i < currentLevel.size(); i++) {
-            if (currentLevel.get(i).equals(item)) {
+            if (currentLevel.get(i).equals(o)) {
                 return i;
             }
         }
